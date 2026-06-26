@@ -1,0 +1,83 @@
+# Build System
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# Project Metadata + Dependencies
+[project]
+name = "reviewmate"
+version = "0.1.0"
+description = "Automate the first-pass of any literature review using fine-tuned DistilBERT and LangGraph multi-agent orchestration."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Himel Das"}
+]
+keywords = ["literature-review", "langgraph", "fine-tuning", "nlp", "research-tools"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Phase 0 minimal dependencies
+# More added per phase as needed
+dependencies = [
+    "fastapi==0.115.5",
+    "uvicorn==0.32.0",
+    "streamlit==1.40.1",
+    "python-dotenv==1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.3",
+    "ruff==0.8.0",
+    "pre-commit==4.0.1",
+]
+
+[project.urls]
+Repository = "https://github.com/himelds/ReviewMate"
+
+# Tool Configurations
+
+# Ruff (linter + formatter)
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [
+    ".venv",
+    "notebooks",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort (import sorting)
+    "W",   # pycodestyle warnings
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+# Pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = [
+    "-v",
+    "--tb=short",
+]
+
+# Setuptools (tells setuptools which folders are packages)
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]

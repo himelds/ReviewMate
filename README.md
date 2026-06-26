@@ -4,7 +4,7 @@
 
 ReviewMate ingests a research question and produces a structured synthesis from open-access academic papers — combining a fine-tuned DistilBERT classifier for abstract structure, multi-agent orchestration via LangGraph, and parallel paper fetching from arXiv, Semantic Scholar, OpenAlex, and PubMed.
 
-**Status:** 🚧 Under active development (Phase 0 of 6).
+**Status:** 🚧 Under active development (Phase 1 of 6).
 
 ---
 
@@ -60,35 +60,66 @@ Best coverage in STEM and biomedical fields. Humanities and non-English research
 | Deployment | Streamlit Cloud / HuggingFace Spaces |
 | CI/CD | GitHub Actions |
 | Testing | pytest + ruff |
+| Packaging | pyproject.toml (PEP 621) |
 
 ---
 
 ## Setup
 
-_Will be added once Phase 0 is complete._
+### Requirements
+
+- Python 3.11
+- conda
+
+### Install
+
+```bash
+# Clone the repository
+git clone https://github.com/himelds/ReviewMate.git
+cd ReviewMate
+
+# Create conda environment
+conda create -n reviewmate python=3.11 -y
+conda activate reviewmate
+
+# Install with dev dependencies (editable mode)
+pip install -e ".[dev]"
+
+# Copy environment template and fill in your API keys
+cp .env.example .env
+```
+
+### Required environment variables
+
+Edit `.env` and fill in:
+
+- `GROQ_API_KEY` — from [console.groq.com](https://console.groq.com)
+- `HF_TOKEN` — from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+- `OPENALEX_EMAIL` — your email (improves rate limit, no registration needed)
+
+Optional for higher rate limits:
+
+- `S2_API_KEY` — from [semanticscholar.org/product/api](https://www.semanticscholar.org/product/api)
+- `NCBI_API_KEY` — from [ncbi.nlm.nih.gov/account](https://www.ncbi.nlm.nih.gov/account/)
+
+### Verify installation
+
+```bash
+python -c "import fastapi, streamlit; print('Setup complete.')"
+ruff check .
+```
 
 ---
 
 ## Usage
 
-_Will be added once Phase 4 is complete._
+_Will be added once Phase 4 (Streamlit UI) is complete._
 
 ---
 
 ## Evaluation
 
 _Will be added once Phase 1 fine-tuning is complete (per-class precision/recall/F1, confusion matrix)._
-
----
-
-## Roadmap
-
-- [x] Phase 0 — Setup and grounding
-- [ ] Phase 1 — Fine-tune DistilBERT on PubMed-RCT-200k
-- [ ] Phase 2 — Paper fetchers (arXiv, S2, OpenAlex, PubMed)
-- [ ] Phase 3 — LangGraph workflow
-- [ ] Phase 4 — Streamlit UI + FastAPI wiring
-- [ ] Phase 5 — Production hardening + deployment
 
 ---
 
