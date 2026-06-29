@@ -26,10 +26,12 @@ classifiers = [
 # Phase 0 minimal dependencies
 # More added per phase as needed
 dependencies = [
-    "fastapi==0.115.5",
-    "uvicorn==0.32.0",
-    "streamlit==1.40.1",
-    "python-dotenv==1.0.1",
+    "fastapi",
+    "uvicorn",
+    "streamlit",
+    "python-dotenv",
+    "torch",
+    "transformers",
 ]
 
 [project.optional-dependencies]

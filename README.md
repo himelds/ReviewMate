@@ -4,7 +4,9 @@
 
 ReviewMate ingests a research question and produces a structured synthesis from open-access academic papers — combining a fine-tuned DistilBERT classifier for abstract structure, multi-agent orchestration via LangGraph, and parallel paper fetching from arXiv, Semantic Scholar, OpenAlex, and PubMed.
 
-**Status:** 🚧 Under active development (Phase 1 of 6).
+**Status:** 🚧 Under active development (Phase 1 of 6 — completed).
+
+📦 **Phase 1 model live:** [Himel000/reviewmate-classifier-v1](https://huggingface.co/Himel000/reviewmate-classifier-v1) (F1 Macro 0.76 on CS abstracts, 0.83 on biomedical)
 
 ---
 
@@ -119,7 +121,18 @@ _Will be added once Phase 4 (Streamlit UI) is complete._
 
 ## Evaluation
 
-_Will be added once Phase 1 fine-tuning is complete (per-class precision/recall/F1, confusion matrix)._
+Phase 1 classifier evaluation results:
+
+| Test Set | Domain | F1 Macro | Accuracy |
+|---|---|---|---|
+| PubMed-RCT | Biomedical | 0.83 | 0.88 |
+| CSAbstruct | Computer Science | 0.76 | 0.75 |
+
+Cross-domain F1 improved from 0.39 to 0.76 via two-stage transfer learning (PubMed → CSAbstruct fine-tuning).
+
+Full methodology and per-class breakdown: [docs/phase-1-evaluation.md](docs/phase-1-evaluation.md).
+
+Subsequent phases will add end-to-end pipeline evaluation.
 
 ---
 

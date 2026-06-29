@@ -104,3 +104,31 @@ User Research Question (Streamlit UI)
 | 3 | LangGraph workflow assembly | 5–6 days |
 | 4 | Streamlit UI + FastAPI wiring | 3–4 days |
 | 5 | Docker + tests + CI/CD + deployment | 3–4 days |
+
+## Phase 1: Rhetorical Sentence Classifier (Completed)
+
+A DistilBERT-based classifier trained via two-stage transfer learning to categorize sentences from research abstracts into five rhetorical roles: BACKGROUND, OBJECTIVE, METHODS, RESULTS, CONCLUSIONS.
+
+### Final Results
+
+| Test Set | Domain | F1 Macro | Accuracy |
+|---|---|---|---|
+| PubMed-RCT | Biomedical | 0.83 | 0.88 |
+| CSAbstruct | Computer Science | 0.76 | 0.75 |
+
+Cross-domain F1 improved from 0.39 (PubMed-only training) to 0.76 (after CS fine-tuning) — nearly doubling out-of-domain performance.
+
+### Model Deployment
+
+Deployed to Hugging Face Hub: [Himel000/reviewmate-classifier-v1](https://huggingface.co/Himel000/reviewmate-classifier-v1)
+
+### Detailed Evaluation
+
+Full methodology, hyperparameters, and per-class performance documented in [phase-1-evaluation.md](phase-1-evaluation.md).
+
+### Engineering Highlights
+
+- **Two-stage transfer learning** — empirically verified (Stage 2 weights diverge only 0.034 from Stage 1, vs 1.84 from fresh DistilBERT)
+- **Scope-aware design** — abstracts-only by deliberate choice; classifier limitations honestly documented
+- **Free-tier compute optimization** — max_length 64, FP16, multi-GPU batch sizing within Kaggle T4 x2 constraints
+- **Community contribution pipeline** — open issue templates for domain-specific dataset contributions
